@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #container{
+            display: grid;
+            grid-template-columns: auto auto auto;
+        }
+        #item1{
+             text-align: center;
+            grid-column-start: 1;
+            grid-column-end: 1;
+        }
+        #item2{
+            text-align: center;
+            grid-column-start:1;
+            grid-column-end: 2;
+        }
+        #item3{
+            text-align: center;
+            grid-column-start:2;
+            grid-column-end:5;
+        }
+        #item4{
+            text-align: end;
+            grid-column-start:2;
+            grid-column-end: 5 ;
+        }
+        input[type=text] {
+            border: 2px solid cornflowerblue;
+            border-radius: 20px;
+            width: 250px;
+            height: 30px;
+        }
+        h2{
+            color: dodgerblue;
+        }
+    </style>
+</head>
+<body>
+<div id="container">
+<div id =item1><header>
+    <h2 >Facebook</h2>
+</header>
+</div>
+<div id ="item2">
+    <section class ="left">
+    <p id="the1">Dang nhap gan day</p>
+    <p>Nhap vao anh or them tai khoan</p>
+    <img src="thang.PNG" height="211" width="160"/>
+    <img src="thang2.PNG" height="207" width="161"/>
+
+</section>
+</div>
+ <div id="item3">
+     <section  class ="right">
+    <form>
+
+        <input type="text" id="fname" name="fname"></br>
+
+        <input type="text" id="lname" name="lname">
+        <p >Dang nhap</p>
+        <p>Quen mat khau<p>
+        <p>Tao tai khoan moi</p>
+    </form>
+</section>
+ </div>
+ <div id="item4" >
+<footer>
+    <p>Tiếng Việt
+        English (UK)
+        中文(台灣)
+        日本語
+        한국어
+        ภาษาไทย
+        Français (France)
+        Español
+        Português (Brasil)
+        Deutsch
+        Italiano
+    </p>
+</footer>
+</div>
+</body>
+</html>
