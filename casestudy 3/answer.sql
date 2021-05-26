@@ -19,23 +19,15 @@ where loaikhach.TenLoaiKhach = "Diamond"
 group by khachhang.IDKhachHang order by so_lan_dat_phong;
 
 -- Cau 5
-create view khachhang_loaikhach
-as	
-select IDKhachHang, HoTen, TenLoaiKhach ,DiaChi
-from khachhang 
-inner join loaikhach on khachhang.IDLoaiKhach = loaikhach.IDLoaiKhach;
 
-create view hopdongchitiet_dichvudikem
-as
-select IDHopDong as ID, soluong , gia 
-from dichvudikem 
-inner join hopdongchitiet on hopdongchitiet.IDDichVuDiKem = dichvudikem.IDDichVuDiKem;
-
-select khachhang_loaikhach.IDKhachHang, HoTen, TenLoaiKhach, IDHopDong, TenDichVu, NgayLamHopDong, NgayKetThuc,soluong ,gia,Tongtien
-from hopdong 
-inner join khachhang_loaikhach on khachhang_loaikhach.IDKhachHang = hopdong.IDKhachHang
-inner join dichvu on dichvu.IDDichVu = hopdong.IDDichVu
-inner join hopdongchitiet_dichvudikem on hopdongchitiet_dichvudikem.ID =hopdong.IDHopDong;
+select khachhang.IDKhachHang, khachhang.HoTen, loaikhach.TenLoaiKhach, hopdong.IDHopDong, dichvu.TenDichVu, NgayLamHopDong, NgayKetThuc,sum(dichvu.ChiPhiThue +hopdongchitiet.SoLuong*dichvudikem.gia) as Tongtien
+from khachhang
+left join loaikhach on khachhang.IDLoaiKhach = loaikhach.IDLoaiKhach
+left join hopdong on khachhang.IDKhachHang= hopdong.IDKhachHang
+left join dichvu on hopdong.IDDichVu=dichvu.IDDichVu
+left join hopdongchitiet on hopdong.IDHopDong = hopdongchitiet.IDHopDong
+left join dichvudikem on hopdongchitiet.IDDichVuDiKem = dichvudikem.IDDichVuDiKem
+group by hopdong.IDHopDong ;
 
 -- Cau 6
 create view dichvu_loaidichvu
@@ -51,7 +43,8 @@ where not exists (select iddichvu from hopdong where dichvu_loaidichvu.IDDichVu 
 select IDDichVu, TenDichVu, DienTich, SoNguoiToiDa, ChiPhiThue, TenLoaiDichVu 
 from dichvu
 inner join loaidichvu on loaidichvu.IDLoaiDichVu = dichvu.IDLoaiDichVu
-where not exists (select NgayLamHopDong from hopdong where  year(ngaylamhopdong)=2019); -- and year(ngaylamhopdong) != 2019);
+where exists (select hopdong.IDHopDong from hopdong where year(hopdong.ngaylamhopdong)="2018" and hopdong.IDDichVu=dichvu.IDDichVu)
+and not exists(select hopdong.IDHopDong from hopdong where year(hopdong.ngaylamhopdong)="2019" and hopdong.IDDichVu=dichvu.IDDichVu);
 
 -- Cau 8
 select distinct hoten
@@ -63,8 +56,28 @@ union
 select hoten
 from khachhang;
 
--- Cau 9
+select hoten
+from khachhang
+group by khachhang.HoTen;
 
+-- Cau 9
+select temp.month ,count(month(hopdong.ngaylamhopdong)) as so_KH_dang_ky ,sum(hopdong.Tongtien) as Tongtien from 
+(select  1 as month
+union select 2 as month
+union select 3 as month
+union select 4 as month
+union select 5 as month
+union select 6 as month
+union select 7 as month
+union select 8 as month
+union select 9 as month
+union select 10 as month
+union select 11 as month
+union select 12 as month) as temp
+left join  hopdong on month(hopdong.ngaylamhopdong)=temp.month
+left join khachhang on khachhang.idkhachhang =hopdong.idkhachhang
+where year (hopdong.ngaylamhopdong) ="2019" or year (hopdong.ngaylamhopdong) is null
+group by temp.month ;
 
 -- Cau 10
 select hopdong.IDHopDong, NgayLamHopDong, NgayKetthuc, TienDatCoc ,count(IDHopDongChiTiet) as SoLuongDichVuDiKem
@@ -74,10 +87,54 @@ group by NgayLamHopDong;
 
 -- Cau 11
 
-select * from dichvudikem ;
+select distinct dichvudikem.TenDichVuDiKem ,dichvudikem.gia ,dichvudikem.DonVi from hopdong 
+inner join hopdongchitiet on hopdong.IDHopDong = hopdongchitiet.IDHopDong
+inner join dichvudikem on hopdongchitiet.IDDichVuDiKem =dichvudikem.IDDichVuDiKem
+inner join khachhang on khachhang.IDKhachHang = hopdong.IDKhachHang
+inner join loaikhach on khachhang.IDLoaiKhach = loaikhach.IDLoaiKhach
+where loaikhach.TenLoaiKhach ="diamond" and khachhang.DiaChi in("Vinh","quang ngai");
 
 -- Cau 12
+select hopdong.IDhopdong , hopdong.tongtien , hopdong.tiendatcoc, nhanvien.HoTen ,khachhang.hoten ,khachhang.SDT , dichvu.tendichvu,
+count(hopdongchitiet.IDDichVuDiKem) as so_lan_su_dung from hopdong
+inner join nhanvien on hopdong.IDNhanVien = nhanvien.IDNhanVien
+inner join khachhang on khachhang.IDKhachHang = hopdong.IDKhachHang
+inner join dichvu on dichvu.IDDichVu = hopdong.IDDichVu
+inner join hopdongchitiet on hopdong.IDHopDong= hopdongchitiet.IDHopDong
+where not exists(select hopdong.IDHopDong where hopdong.NgayLamHopDong between "2019-01-01" and "2019-06-31")
+and exists(select hopdong.IDHopDong where hopdong.NgayLamHopDong between "2019-09-01" and "2019-12-31") ;
 
 -- Cau 13
-select * from dichvudikem
-where 
+
+create temporary table temp
+select dichvudikem.TenDichVuDiKem as ten_dv_di_kem, count(hopdongchitiet.iddichvudikem) as so_lan_su_dung from hopdongchitiet
+inner join dichvudikem on dichvudikem.IDDichVuDiKem =hopdongchitiet.IDDichVuDiKem
+group by dichvudikem.TenDichVuDiKem;
+select *from temp;
+
+create temporary table temp1
+select max(temp.so_lan_su_dung) as max_so_lan_su_dung from temp;
+select *from temp1;
+
+select temp.ten_dv_di_kem, temp.so_lan_su_dung from temp inner join temp1 on temp.so_lan_su_dung= temp1.max_so_lan_su_dung;
+
+-- Yeu cau 14
+
+select hopdong.idhopdong ,loaidichvu.TenLoaiDichVu, dichvudikem.tendichvudikem, count(hopdongchitiet.iddichvudikem) as so_lan_su_dung
+from hopdong
+inner join dichvu on dichvu.IDDichVu = hopdong.IDDichVu
+inner join loaidichvu on hopdong.IDDichVu= loaidichvu.IDDichVu
+inner join hopdongchitiet on hopdong.IDHopDong =hopdongchitiet.IDHopDong
+inner join dichvudikem on dichvudikem.IDDichVuDiKem =hopdongchitiet.IDDichVuDiKem
+group by dichvudikem.TenDichVuDiKem 
+having 	so_lan_su_dung =1 ;
+
+-- Yeu cau 15
+select nhanvien.idnhanvien, nhanvien.hoten, nhanvien.SDT, nhanvien.DiaChi,trinhdo.TrinhDo,bophan.TenBoPhan, count(hopdong.IDNhanVien) as so_lan_tao_hop_dong
+from nhanvien 
+inner join trinhdo on trinhdo.IDTrinhDo = nhanvien.IDTrinhDo
+inner join bophan on  bophan.IDBoPhan = nhanvien.IDBoPhan
+inner join hopdong on hopdong.IDNhanVien = nhanvien.IDNhanVien
+where hopdong.NgayLamHopDong between "2018-01-01" and "2019-12-31"
+group by nhanvien.HoTen
+having so_lan_tao_hop_dong <4;
