@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #menu{
+            background-color: gray;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+        #menu a{
+            float: left;
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            font-size: 17px;
+        }
+        #menu li{
+            position: relative;
+            float: left;
+            list-style: none;
+            margin: 0;
+            padding:0;
+        }
+
+        /*#menu ul ul li a{*/
+        /*    width: 200px;*/
+        /*    text-align: left;*/
+        /*    padding-left: 10px;*/
+        /*}*/
+        #menu ul li ul li a{
+            color: dodgerblue;
+        }
+        #menu li a:hover{
+            background-color: black;
+        }
+
+        #menu ul ul{
+            position: absolute;
+            top: 30px;
+            left: 15px;
+            visibility: hidden;
+        }
+
+        #menu ul li:hover ul{
+            visibility: visible;
+        }
+
+     
+        #left {
+            width: 200px;
+            min-height: 550px;
+            float: left;
+            background-color: darkgrey;
+        }
+
+        #right {
+            width: 200px;
+            min-height: 550px;
+            float: right;
+            background-color: darkgrey;
+        }
+
+        #footer {
+            height: 50px;
+            clear: both;
+            background-color: dimgray;
+        }
+
+        #footer p {
+            text-align: center;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div id="menu">
+    <ul>
+        <li><a href="#logo">Logo</a>
+        <li></li>
+
+        <li><a href="#home">Home</a>
+            <ul>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+                <li><a href="#">Link</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#about">About</a>
+            <a href="#project">Projects</a>
+            <a href="#contact">Contact</a>
+            <a href="#login">Login</a>
+        </li>
+    </ul>
+</div>
+<section><div id="content1">
+    <h1>Welcome</h1>
+</div></section>
+<div id="content2">
+
+</div>
+<div id="left">
+
+</div>
+<div id="right">
+
+</div>
+<div id="footer">
+    <p>Footer Text</p>
+</div>
+</body>
+</html>
