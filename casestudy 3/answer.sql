@@ -123,7 +123,7 @@ select temp.ten_dv_di_kem, temp.so_lan_su_dung from temp inner join temp1 on tem
 select hopdong.idhopdong ,loaidichvu.TenLoaiDichVu, dichvudikem.tendichvudikem, count(hopdongchitiet.iddichvudikem) as so_lan_su_dung
 from hopdong
 inner join dichvu on dichvu.IDDichVu = hopdong.IDDichVu
-inner join loaidichvu on hopdong.IDDichVu= loaidichvu.IDDichVu
+inner join loaidichvu on dichvu.IDLoaiDichVu = loaidichvu.IDLoaiDichVu
 inner join hopdongchitiet on hopdong.IDHopDong =hopdongchitiet.IDHopDong
 inner join dichvudikem on dichvudikem.IDDichVuDiKem =hopdongchitiet.IDDichVuDiKem
 group by dichvudikem.TenDichVuDiKem 
@@ -137,4 +137,37 @@ inner join bophan on  bophan.IDBoPhan = nhanvien.IDBoPhan
 inner join hopdong on hopdong.IDNhanVien = nhanvien.IDNhanVien
 where hopdong.NgayLamHopDong between "2018-01-01" and "2019-12-31"
 group by nhanvien.HoTen
-having so_lan_tao_hop_dong <4;
+having so_lan_tao_hop_dong < 4;
+
+-- Yeu cau 16
+delete from nhanvien
+where not exists(select nhanvien.IDNhanVien from hopdong where hopdong.NgayLamHopDong between "2017-01-01" and "2019-12-31"
+and hopdong.IDNhanVien = nhanvien.IDNhanVien);
+
+-- Yeu cau 17
+update khachhang,(select hopdong.IDKhachHang as id ,sum(hopdong.tongtien) as tong_tien from hopdong
+where year (hopdong.ngaylamhopdong)=2019
+group by hopdong.IDKhachHang
+having tong_tien >10000000) as temp set khachhang.IDLoaiKhach=(select loaikhach.IDLoaiKhach from loaikhach where loaikhach.TenLoaiKhach="diamond")
+where khachhang.idloaikhach = (select loaikhach.idloaikhach from loaikhach where loaikhach.TenLoaiKhach ="Platinum")
+and temp.id =khachhang.IDKhachHang ;
+
+-- Yeu cau 18
+	delete khachhang ,hopdong, hopdongchitiet from khachhang 
+    inner join hopdong on  hopdong.IDKhachHang =khachhang.IDKhachHang 
+    inner join hopdongchitiet on hopdong.IDHopDong = hopdongchitiet.IDHopDong
+    where not exists(select hopdong.IDHopDong where year (hopdong.ngaylamhopdong)>"2016" and khachhang.IDKhachHang= hopdong.IDKhachHang);
+    
+-- Yeu cau 19
+update dichvudikem inner join (select  dichvudikem.TenDichVuDiKem as ten_dv_di_kem
+from hopdongchitiet inner join dichvudikem on dichvudikem.IDDichVuDiKem = hopdongchitiet.IDDichVuDiKem
+group by dichvudikem.IDDichVuDiKem
+having count(hopdongchitiet.IDDichVuDiKem)>3) as temp set dichvudikem.Gia= dichvudikem.gia*2 
+where dichvudikem.tendichvudikem= temp.ten_dv_di_kem ;
+
+-- Yeu cau 20
+select nhanvien.IDNhanVien as ID , nhanvien.hoten, nhanvien.Email, nhanvien.SDT , nhanvien.NgaySinh ,nhanvien.DiaChi, "nhanvien" as FromTable
+from nhanvien
+union all
+select khachhang.IDkhachhang as ID, khachhang.HoTen,khachhang.Email,khachhang.SDT,khachhang.DiaChi ,khachhang.NgaySinh, "khachhang" as FromTable
+from khachhang ;

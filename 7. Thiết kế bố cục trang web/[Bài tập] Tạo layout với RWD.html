@@ -4,13 +4,16 @@
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-        #menu{
-            background-color: gray;
-            position: fixed;
-            top: 0;
+        .container {
             width: 100%;
         }
-        #menu a{
+
+        #menu {
+            background-color: gray;
+            height:50px}
+
+
+        #menu a {
             float: left;
             display: block;
             color: white;
@@ -19,99 +22,122 @@
             text-decoration: none;
             font-size: 17px;
         }
-        #menu li{
+
+        #menu li {
             position: relative;
             float: left;
             list-style: none;
             margin: 0;
-            padding:0;
+            padding: 0;
         }
 
-        /*#menu ul ul li a{*/
-        /*    width: 200px;*/
-        /*    text-align: left;*/
-        /*    padding-left: 10px;*/
-        /*}*/
-        #menu ul li ul li a{
+        #menu ul li ul li a {
             color: dodgerblue;
         }
-        #menu li a:hover{
+
+        #menu li a:hover {
             background-color: black;
         }
 
-        #menu ul ul{
+        #menu ul ul {
             position: absolute;
             top: 30px;
             left: 15px;
             visibility: hidden;
         }
 
-        #menu ul li:hover ul{
+        #menu ul li:hover ul {
             visibility: visible;
         }
 
-     
+
         #left {
-            width: 200px;
-            min-height: 550px;
+            width: 250px;
+            min-height: 500px;
             float: left;
+            margin-right: 5px;
             background-color: darkgrey;
         }
 
         #right {
-            width: 200px;
-            min-height: 550px;
-            float: right;
+            width: 250px;
+            min-height: 500px;
+            float:right;
+            margin-bottom: 5px;
             background-color: darkgrey;
+
         }
+
+        #content {
+            width: 800px;
+            min-height: 400px;
+            float:left;
+        }
+
 
         #footer {
-            height: 50px;
-            clear: both;
+            height: 70px;
+            clear: left;
             background-color: dimgray;
-        }
-
-        #footer p {
             text-align: center;
             color: white;
         }
+
+        #footer p {
+            margin-left: 200px;
+            color: white;
+        }
+        #the1 , #the2{
+            border: 2px solid gray;
+            margin :50px;
+            width : 70px;
+            padding: 20px;
+            text-align: center;
+        }
+
     </style>
 </head>
 <body>
-<div id="menu">
-    <ul>
-        <li><a href="#logo">Logo</a>
-        <li></li>
+<div class="container">
+    <div id="menu">
+        <ul>
+            <li><a href="#logo">Logo</a>
+            <li></li>
 
-        <li><a href="#home">Home</a>
-            <ul>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
-                <li><a href="#">Link</a></li>
-            </ul>
-        </li>
-        <li>
-            <a href="#about">About</a>
-            <a href="#project">Projects</a>
-            <a href="#contact">Contact</a>
-            <a href="#login">Login</a>
-        </li>
-    </ul>
-</div>
-<section><div id="content1">
-    <h1>Welcome</h1>
-</div></section>
-<div id="content2">
+            <li><a href="#home">Home</a>
+                <ul>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                    <li><a href="#">Link</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#about">About</a>
+                <a href="#project">Projects</a>
+                <a href="#contact">Contact</a>
+                <a href="#login">Login</a>
+            </li>
+        </ul>
+    </div>
 
-</div>
-<div id="left">
+    <div id="left">
 
+    </div>
+    <div id="content">
+        <h1>Welcome</h1>
+        <p>Vietnam (Vietnamese: Việt Nam, [vîət nāːm] (About this soundlisten)), officially the Socialist Republic of Vietnam,[a] is a country in Southeast Asia. It is located at the eastern edge of the Indochinese Peninsula, and is divided into 58 provinces and five municipalities, covering 331,699 square kilometres, with a population of over 96 million inhabitants, making it the world's sixteenth-most populous country. Vietnam shares borders with China to the north, Laos and Cambodia to the west; whilst maintaining maritime borders with Thailand through the Gulf of Thailand, and the Philippines, Indonesia and Malaysia through the South China Sea.[n 5] Its capital is Hanoi and its largest city is Ho Chi Minh City (Saigon).</p>
+        <h3>Test</h3>
+        <p>Lorem ipsum</p>
+    </div>
+    <div id="right">
+        <p id ="the1">ADS</p>
+        <p id ="the2">ADS</p>
+    </div>
+    <div id="footer">
+        <p>Footer Text</p>
+    </div>
 </div>
-<div id="right">
 
-</div>
-<div id="footer">
-    <p>Footer Text</p>
-</div>
 </body>
 </html>

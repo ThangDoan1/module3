@@ -5,83 +5,111 @@
     <title>Title</title>
     <style>
         #container{
-            display: grid;
-            grid-template-columns: 25% 25% 25% 25%  ;
+
         }
-        #item1{
+        #item1 {
             position: fixed;
-            grid-column-start:0;
-            grid-column-end: 1;
+            top: 100px;
+            left: 200px;
         }
-        #item2{
-            text-align: center;
-            grid-column-start:1;
-            grid-column-end: 3;
+
+        #item2 {
+            position: relative;
+            top: 150px;
+            left: 200px;
         }
-        #item3{
-            text-align: center;
-            grid-column-start:2;
-            grid-column-end:5;
+
+        #item3 {
+            position: relative;
+            top: -100px;
+            left: 800px;
         }
         #item4{
-            text-align: end;
-            grid-column-start:2;
-            grid-column-end: 5 ;
+
+            left: 250px;
+            bottom: 50px;
+            position: fixed;
+
         }
+
         input[type=text] {
             border: 2px solid cornflowerblue;
             border-radius: 20px;
             width: 250px;
             height: 30px;
         }
-        h2{
+
+        h2 {
             color: dodgerblue;
+        }
+        .login{
+            color: white;
+            border: 2px solid cornflowerblue;
+            border-radius: 20px;
+            width: 250px;
+            height: 30px;
+            background-color: blue;
+            text-align: center;
+        }
+        .pass{
+            color:dodgerblue;
+            text-align: center;
+            width: 250px;
+            height: 30px;
+        }
+        .account{
+            color: white;
+            border-radius: 20px;
+            width: 250px;
+            height: 30px;
+            background-color: forestgreen;
+            text-align: center;
         }
     </style>
 </head>
 <body>
 <div id="container">
-<div id =item1><header>
-    <h2 >Facebook</h2>
-</header>
-</div>
-<div id ="item2">
-    <section class ="left">
-    <p id="the1">Dang nhap gan day</p>
-    <p>Nhap vao anh or them tai khoan</p>
-    <img src="thang.PNG" height="211" width="160"/>
-    <img src="thang2.PNG" height="207" width="161"/>
+    <div id="item1">
+        <header>
+            <h2>Facebook</h2>
+        </header>
+    </div>
+    <div id="item2">
+        <section class="left">
+            <p id="the1">Dang nhap gan day</p>
+            <p>Nhap vao anh or them tai khoan</p>
+            <img src="../6.%20CSS%20-%20Cascading%20Style%20Stylesheet/thang.PNG" height="211" width="160"/>
+            <img src="thang2.PNG" height="207" width="161"/>
+            <img src="thang2.PNG" height="207" width="161"/>
+        </section>
+    </div>
+    <div id="item3">
+        <section class="right">
+            <form>
+                <input type="text" id="fname" name="fname"></br>
 
-</section>
-</div>
- <div id="item3">
-     <section  class ="right">
-    <form>
-
-        <input type="text" id="fname" name="fname"></br>
-
-        <input type="text" id="lname" name="lname">
-        <p >Dang nhap</p>
-        <p>Quen mat khau<p>
-        <p>Tao tai khoan moi</p>
-    </form>
-</section>
- </div>
- <div id="item4" >
-<footer>
-    <p>Tiếng Việt
-        English (UK)
-        中文(台灣)
-        日本語
-        한국어
-        ภาษาไทย
-        Français (France)
-        Español
-        Português (Brasil)
-        Deutsch
-        Italiano
-    </p>
-</footer>
-</div>
+                <input type="text" id="lname" name="lname">
+                <p class="login">Dang nhap</p>
+                <p class="pass">Quen mat khau</p>
+                <p class="account">Tao tai khoan moi</p>
+            </form>
+        </section>
+    </div>
+    <div id="item4">
+        <footer>
+            <p>Tiếng Việt
+                English (UK)
+                中文(台灣)
+                日本語
+                한국어
+                ภาษาไทย
+                Français (France)
+                Español
+                Português (Brasil)
+                Deutsch
+                Italiano
+            </p>
+        </footer>
+    </div>
 </body>
 </html>
