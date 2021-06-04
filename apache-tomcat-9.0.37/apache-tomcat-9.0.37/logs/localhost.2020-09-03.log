@@ -1,0 +1,8 @@
+03-Sep-2020 14:25:58.958 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+03-Sep-2020 14:25:58.958 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+03-Sep-2020 14:25:58.960 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@63070bab')
+03-Sep-2020 14:50:25.421 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextDestroyed()
+03-Sep-2020 14:50:25.421 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextDestroyed()
+03-Sep-2020 16:41:55.727 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: contextInitialized()
+03-Sep-2020 16:41:55.727 INFO [main] org.apache.catalina.core.ApplicationContext.log SessionListener: contextInitialized()
+03-Sep-2020 16:41:55.731 INFO [main] org.apache.catalina.core.ApplicationContext.log ContextListener: attributeAdded('StockTicker', 'async.Stockticker@778ca8ef')
