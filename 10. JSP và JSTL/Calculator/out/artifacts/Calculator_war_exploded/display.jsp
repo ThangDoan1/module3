@@ -12,9 +12,6 @@
 </head>
 <body>
 <h1>Result</h1>
-<h3>First : ${first-operand} </h3>
-<h3>operator : ${operator}</h3>
-<h3>second : ${second-operand}</h3>
-<h3>result : ${result}</h3>
+<h3> ${firstNumber} ${operator}  ${secondNumber} = ${result} </h3>
 </body>
 </html>
