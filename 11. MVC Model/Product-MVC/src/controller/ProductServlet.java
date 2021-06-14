@@ -73,9 +73,8 @@ public class ProductServlet extends HttpServlet {
         Product product = new Product(id, nameProduct, priceProduct, descriptionProduct, producer);
         this.productService.save(product);
 
-        RequestDispatcher dispatcher = request.getRequestDispatcher("customer/product.jsp");
-        request.setAttribute("massage", "New product was created");
-
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/create.jsp");
+        request.setAttribute("message", "New product was created");
         try {
             dispatcher.forward(request, response);
         } catch (ServletException e) {
@@ -201,7 +200,7 @@ public class ProductServlet extends HttpServlet {
 
     private void listProduct(HttpServletRequest request, HttpServletResponse response) {
         List<Product> products= this.productService.findAll();
-        request.setAttribute("products", products);
+        request.setAttribute("products",products);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         try {

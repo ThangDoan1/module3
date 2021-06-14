@@ -113,7 +113,7 @@ public class CustomerServlet extends HttpServlet  {
         this.customerService.save(customer);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("customer/create.jsp");
-        request.setAttribute("massage", "New customer was created");
+        request.setAttribute("message", "New customer was created");
 
         try {
             dispatcher.forward(request, response);
