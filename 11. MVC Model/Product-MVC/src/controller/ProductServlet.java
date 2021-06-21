@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(name = "ProductServlet", urlPatterns = "/products")
+@WebServlet(name = "ProductServlet", urlPatterns = {"/products",""})
 public class ProductServlet extends HttpServlet {
 
     private ProductService productService = new ProductServiceImpl();
@@ -32,6 +32,9 @@ public class ProductServlet extends HttpServlet {
                 break;
             case "delete":
                 deleteProduct(request, response);
+                break;
+            case "search" :
+                searchProduct(request,response);
                 break;
             default:
                 break;
@@ -68,7 +71,7 @@ public class ProductServlet extends HttpServlet {
        double priceProduct = Double.parseDouble(request.getParameter("priceProduct"));
         String descriptionProduct = request.getParameter("descriptionProduct");
         String producer = request.getParameter("producer");
-//        id = (int) (Math.random() * 1000);
+//
 
         Product product = new Product(id, nameProduct, priceProduct, descriptionProduct, producer);
         this.productService.save(product);
@@ -199,8 +202,24 @@ public class ProductServlet extends HttpServlet {
     }
 
     private void listProduct(HttpServletRequest request, HttpServletResponse response) {
+
         List<Product> products= this.productService.findAll();
         request.setAttribute("products",products);
+
+        RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
+        try {
+            dispatcher.forward(request, response);
+        } catch (ServletException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void searchProduct(HttpServletRequest request, HttpServletResponse response) {
+        String str = request.getParameter("find");
+        List<Product> product = this.productService.findName(str);
+        request.setAttribute("products",product);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("product/list.jsp");
         try {

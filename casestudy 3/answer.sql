@@ -170,4 +170,4 @@ select nhanvien.IDNhanVien as ID , nhanvien.hoten, nhanvien.Email, nhanvien.SDT 
 from nhanvien
 union all
 select khachhang.IDkhachhang as ID, khachhang.HoTen,khachhang.Email,khachhang.SDT,khachhang.DiaChi ,khachhang.NgaySinh, "khachhang" as FromTable
-from khachhang ;
+from khachhang ;mon_hoc

@@ -5,12 +5,12 @@ import model.Product;
 import java.util.*;
 
 public class ProductRepositoryImpl implements ProductRepository {
-    private static Map<Integer,Product> products;
+    private static Map<Integer, Product> products;
 
     static {
         products = new HashMap<>();
-        products.put(1, new Product(1, "Car", 100, "good", "usa"));
-        products.put(2, new Product(2, "Bike", 50, "good", "vn"));
+        products.put(0, new Product(1, "Car", 100, "good", "usa"));
+        products.put(1, new Product(2, "Bike", 50, "good", "vn"));
     }
 
     @Override
@@ -20,7 +20,7 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void save(Product product) {
-        products.put(product.getId(),product);
+        products.put(product.getId(), product);
     }
 
     @Override
@@ -30,11 +30,25 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void update(int id, Product product) {
-products.put(id,product);
+        products.put(id, product);
     }
 
     @Override
     public void remove(int id) {
-products.remove(id);
+        products.remove(id);
     }
+
+    @Override
+    public List<Product> findName(String nameProduct) {
+        List<Product> listProduct = new ArrayList<>();
+        Set<Integer> set = products.keySet();
+        for (int key : set) {
+
+            if (products.get(key).getNameProduct().contains(nameProduct)) {
+                listProduct.add(products.get(key));
+            }
+        }
+        return listProduct;
+    }
+
 }
